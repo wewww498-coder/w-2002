@@ -1,0 +1,668 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#090518">
+<meta name="description" content="لُحمة تك: منصة تفاعلية لتعزيز الحوار والترابط الأسري.">
+<title>لُحمة تك | LOHMA TECH</title>
+
+<style>
+:root {
+  --bg: #090518;
+  --card: rgba(30, 18, 58, .86);
+  --purple: #a855f7;
+  --lavender: #d8b4fe;
+  --text: #faf5ff;
+  --muted: #d0c3e8;
+  --border: rgba(192, 132, 252, .27);
+}
+
+* { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 90px;
+}
+
+body {
+  margin: 0;
+  font-family: Tahoma, Arial, sans-serif;
+  color: var(--text);
+  line-height: 1.9;
+  background:
+    radial-gradient(ellipse at 15% 10%, rgba(126,34,206,.28), transparent 38%),
+    radial-gradient(ellipse at 85% 40%, rgba(91,33,182,.2), transparent 42%),
+    linear-gradient(145deg, #100824, #090518 55%, #16082d);
+  min-height: 100vh;
+  position: relative;
+  isolation: isolate;
+}
+
+a { color: inherit; text-decoration: none; }
+button, select, textarea { font: inherit; }
+
+/* نجوم الخلفية */
+.stars {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  overflow: hidden;
+  background-image:
+    radial-gradient(2px 2px at 10% 15%, #fff 98%, transparent),
+    radial-gradient(1px 1px at 20% 45%, #e9d5ff 98%, transparent),
+    radial-gradient(2px 2px at 30% 75%, #fff 98%, transparent),
+    radial-gradient(1px 1px at 45% 20%, #d8b4fe 98%, transparent),
+    radial-gradient(2px 2px at 60% 60%, #fff 98%, transparent),
+    radial-gradient(1.5px 1.5px at 72% 12%, #c4b5fd 98%, transparent),
+    radial-gradient(2px 2px at 83% 47%, #fff 98%, transparent),
+    radial-gradient(1px 1px at 93% 80%, #e9d5ff 98%, transparent);
+  background-size: 240px 240px;
+  opacity: .8;
+}
+
+.container {
+  width: min(1120px, 92%);
+  margin: auto;
+}
+
+/* الشريط العلوي */
+header {
+  padding: 16px 0;
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: rgba(12, 6, 29, .92);
+  backdrop-filter: blur(14px);
+}
+
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.brand {
+  font-size: 1.35rem;
+  font-weight: bold;
+  color: var(--lavender);
+  text-shadow: 0 0 18px rgba(192,132,252,.35);
+}
+
+nav {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+nav a {
+  font-size: .9rem;
+  color: var(--muted);
+  transition: color .2s;
+}
+
+nav a:hover { color: #fff; }
+
+/* الواجهة الرئيسية */
+.hero {
+  text-align: center;
+  padding: 90px 0 70px;
+  position: relative;
+}
+
+.eyebrow {
+  display: inline-block;
+  padding: 5px 16px;
+  border: 1px solid rgba(192,132,252,.4);
+  border-radius: 30px;
+  color: #e9d5ff;
+  background: rgba(126,34,206,.14);
+}
+
+h1 {
+  font-size: clamp(2.7rem, 7vw, 5rem);
+  line-height: 1.25;
+  margin: 22px 0 10px;
+  text-shadow: 0 0 28px rgba(168,85,247,.25);
+}
+
+.gradient {
+  background: linear-gradient(100deg, #f3e8ff, #c084fc, #a78bfa);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.lead {
+  max-width: 760px;
+  margin: 20px auto;
+  color: var(--muted);
+  font-size: 1.08rem;
+}
+
+.actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 25px;
+}
+
+.btn {
+  display: inline-block;
+  border: 1px solid transparent;
+  cursor: pointer;
+  padding: 11px 22px;
+  border-radius: 12px;
+  font-weight: bold;
+  background: linear-gradient(110deg, #d8b4fe, #8b5cf6);
+  color: #190b2e;
+  box-shadow: 0 5px 22px rgba(139,92,246,.2);
+  transition: transform .2s, box-shadow .2s;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px rgba(168,85,247,.3);
+}
+
+.btn.secondary {
+  background: rgba(88,28,135,.15);
+  color: #e9d5ff;
+  border-color: rgba(192,132,252,.4);
+  box-shadow: none;
+}
+
+section {
+  padding: 48px 0;
+  scroll-margin-top: 80px;
+}
+
+.section-head {
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+.section-head h2 {
+  color: #eadcff;
+  font-size: clamp(1.6rem, 4vw, 2.3rem);
+  margin-bottom: 5px;
+}
+
+.section-head p { color: var(--muted); margin-top: 0; }
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(235px, 1fr));
+  gap: 17px;
+}
+
+.card {
+  padding: 23px;
+  border: 1px solid var(--border);
+  border-radius: 19px;
+  background: linear-gradient(145deg,
+    rgba(42,25,73,.87), rgba(19,12,39,.91));
+  box-shadow: 0 10px 30px rgba(0,0,0,.15);
+  backdrop-filter: blur(8px);
+  transition: transform .25s, border-color .25s;
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(192,132,252,.55);
+}
+
+.card h3 { color: #e9d5ff; margin: 8px 0; }
+.card p, .card li { color: var(--muted); }
+.icon { font-size: 2rem; }
+
+.highlight {
+  border: 1px solid rgba(192,132,252,.36);
+  background: linear-gradient(135deg,
+    rgba(126,34,206,.19), rgba(49,25,88,.47));
+  border-radius: 22px;
+  padding: 25px;
+  box-shadow: 0 0 35px rgba(126,34,206,.07);
+}
+
+.steps { counter-reset: steps; }
+.step::before {
+  counter-increment: steps;
+  content: "0" counter(steps);
+  display: inline-block;
+  color: #d8b4fe;
+  font-size: 1.1rem;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 14px;
+}
+
+label {
+  display: block;
+  margin-bottom: 6px;
+  color: #e9d5ff;
+}
+
+select, textarea {
+  width: 100%;
+  padding: 12px;
+  color: var(--text);
+  background: #170d2c;
+  border: 1px solid rgba(192,132,252,.32);
+  border-radius: 10px;
+  outline: none;
+}
+
+select:focus, textarea:focus {
+  border-color: #c084fc;
+  box-shadow: 0 0 0 3px rgba(168,85,247,.13);
+}
+
+select option { background: #170d2c; color: #fff; }
+textarea { min-height: 105px; resize: vertical; }
+
+.result {
+  margin-top: 18px;
+  padding: 20px;
+  border-radius: 15px;
+  background: rgba(88,28,135,.2);
+  border: 1px solid rgba(192,132,252,.32);
+}
+
+.hidden { display: none !important; }
+.notice { font-size: .88rem; color: #c8b8df; }
+
+footer {
+  margin-top: 35px;
+  padding: 30px 0;
+  border-top: 1px solid var(--border);
+  text-align: center;
+  color: var(--muted);
+}
+
+footer strong { color: var(--lavender); }
+
+@media (max-width: 600px) {
+  header { position: relative; }
+  .nav { justify-content: center; }
+  nav { justify-content: center; gap: 10px; }
+  .hero { padding: 55px 0 45px; }
+  section { padding: 35px 0; }
+  .card { padding: 19px; }
+}
+</style>
+</head>
+
+<body>
+<div class="stars" aria-hidden="true"></div>
+
+<header>
+  <div class="container nav">
+    <a class="brand" href="#home">✦ لُحمة تك</a>
+    <nav aria-label="التنقل الرئيسي">
+      <a href="#idea">الفكرة</a>
+      <a href="#problem">المشكلة</a>
+      <a href="#solution">الحل</a>
+      <a href="#how">آلية العمل</a>
+      <a href="#demo">النموذج</a>
+      <a href="#future">التطوير</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<section class="hero" id="home">
+  <div class="container">
+    <span class="eyebrow">✦ ابتكار اجتماعي تقني · نموذج أولي ✦</span>
+    <h1>لُحمة <span class="gradient">تك</span></h1>
+    <h2>نقرّب القلوب، مو بس نبعد الجوالات.</h2>
+    <p class="lead">
+      منصة تفاعلية تهدف إلى تعزيز الحوار والترابط الأسري من خلال أنشطة
+      مشتركة تساعد أفراد الأسرة على تخصيص وقت للتواصل الحقيقي بعيدًا
+      عن الانشغال المستمر بالأجهزة الرقمية.
+    </p>
+    <div class="actions">
+      <a class="btn" href="#idea">اكتشفي فكرة المشروع ✦</a>
+      <a class="btn secondary" href="#demo">جرّبي النموذج الأولي</a>
+    </div>
+  </div>
+</section>
+
+<section id="idea">
+  <div class="container">
+    <div class="section-head">
+      <h2>✧ ما هو مشروع لُحمة تك؟</h2>
+      <p>تقنية تخدم العلاقات الإنسانية بدل أن تستحوذ على وقتها.</p>
+    </div>
+    <div class="highlight">
+      <p>
+        لُحمة تك هو تصور لمنصة رقمية تساعد الأسر على تحسين جودة الحوار اليومي،
+        عبر اقتراح أنشطة وأسئلة تناسب اهتمامات أفراد الأسرة وأعمارهم.
+        كما يتضمن النموذج تقييمًا ذاتيًا بسيطًا قبل النشاط وبعده لملاحظة
+        شعور المشاركين تجاه تجربتهم.
+      </p>
+      <p>
+        لا يهدف المشروع إلى منع التقنية، بل إلى توظيفها بطريقة متوازنة
+        تشجع على التفاعل المباشر والاستماع المتبادل وصناعة ذكريات مشتركة.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section id="problem">
+  <div class="container">
+    <div class="section-head">
+      <h2>المشكلة التي يعالجها المشروع</h2>
+      <p>الوجود في مكان واحد لا يعني دائمًا التواصل الحقيقي.</p>
+    </div>
+    <div class="grid">
+      <article class="card">
+        <div class="icon">📱</div>
+        <h3>الانشغال بالشاشات</h3>
+        <p>قد يقلل الاستخدام المتكرر للأجهزة أثناء الجلسات الأسرية من فرص الحديث والمشاركة.</p>
+      </article>
+      <article class="card">
+        <div class="icon">💬</div>
+        <h3>ضعف الحوار اليومي</h3>
+        <p>قد يجد بعض أفراد الأسرة صعوبة في بدء حوار ممتع أو التعبير عن مشاعرهم واهتماماتهم.</p>
+      </article>
+      <article class="card">
+        <div class="icon">🧩</div>
+        <h3>قلة الأنشطة المشتركة</h3>
+        <p>قد تحتاج الأسرة إلى أفكار بسيطة ومتجددة تساعدها على قضاء وقت نوعي معًا.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="solution">
+  <div class="container">
+    <div class="section-head">
+      <h2>الحل المقترح</h2>
+      <p>تجربة بسيطة تضع الحوار الأسري في مركز الاهتمام.</p>
+    </div>
+    <div class="grid">
+      <article class="card">
+        <div class="icon">🎯</div>
+        <h3>أنشطة ملائمة</h3>
+        <p>اقتراح أنشطة وأسئلة وفق الفئة العمرية والاهتمامات المختارة.</p>
+      </article>
+      <article class="card">
+        <div class="icon">🤝</div>
+        <h3>تواصل مباشر</h3>
+        <p>تشجيع أفراد الأسرة على الاستماع لبعضهم وتبادل الآراء بعيدًا عن المقاطعات الرقمية.</p>
+      </article>
+      <article class="card">
+        <div class="icon">📊</div>
+        <h3>تقييم ذاتي</h3>
+        <p>إتاحة تقييم اختياري للشعور قبل النشاط وبعده لملاحظة التجربة الشخصية.</p>
+      </article>
+      <article class="card">
+        <div class="icon">🧠</div>
+        <h3>تطوير ذكي مستقبلًا</h3>
+        <p>تطوير المنصة مستقبلًا باستخدام تقنيات ذكاء اصطناعي فعلية لتخصيص الاقتراحات.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="how">
+  <div class="container">
+    <div class="section-head">
+      <h2>كيف تعمل المنصة؟</h2>
+      <p>رحلة مقترحة من اختيار النشاط إلى التأمل في التجربة.</p>
+    </div>
+    <div class="grid steps">
+      <article class="card step">
+        <h3>اختيار الفئة والاهتمام</h3>
+        <p>يحدد المستخدم الفئة العمرية وموضوع النشاط الذي يناسب أسرته.</p>
+      </article>
+      <article class="card step">
+        <h3>التقييم قبل النشاط</h3>
+        <p>يختار المستخدم تقييمًا ذاتيًا اختياريًا من 1 إلى 5.</p>
+      </article>
+      <article class="card step">
+        <h3>تنفيذ نشاط أسري</h3>
+        <p>تظهر فكرة أو سؤال يساعد أفراد الأسرة على بدء حوار مباشر.</p>
+      </article>
+      <article class="card step">
+        <h3>التقييم بعد النشاط</h3>
+        <p>يمكن مقارنة التقييمين بوصفها ملاحظة شخصية، لا دليلًا علميًا على تحسن العلاقة.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="demo">
+  <div class="container">
+    <div class="section-head">
+      <h2>✦ جرّبي النموذج الأولي ✦</h2>
+      <p>اختاري الخيارات للحصول على اقتراح نشاط أسري.</p>
+    </div>
+
+    <div class="card">
+      <form id="activityForm">
+        <div class="form-grid">
+          <div>
+            <label for="age">الفئة العمرية</label>
+            <select id="age">
+              <option value="children">الأطفال</option>
+              <option value="teens">المراهقون</option>
+              <option value="adults">الشباب والبالغون</option>
+              <option value="mixed">أفراد الأسرة بأعمار مختلفة</option>
+            </select>
+          </div>
+          <div>
+            <label for="interest">نوع النشاط</label>
+            <select id="interest">
+              <option value="memories">الذكريات والقصص</option>
+              <option value="goals">الأحلام والأهداف</option>
+              <option value="fun">المرح والتحديات</option>
+              <option value="talk">الحوار والتعبير</option>
+            </select>
+          </div>
+          <div>
+            <label for="before">كيف تقيّم التواصل الآن؟</label>
+            <select id="before">
+              <option value="1">1 — منخفض جدًا</option>
+              <option value="2">2 — منخفض</option>
+              <option value="3" selected>3 — متوسط</option>
+              <option value="4">4 — جيد</option>
+              <option value="5">5 — ممتاز</option>
+            </select>
+          </div>
+        </div>
+        <div class="actions" style="justify-content:flex-start">
+          <button class="btn" type="submit">اقترحي نشاطًا ✨</button>
+        </div>
+      </form>
+
+      <div id="activityResult" class="result hidden" aria-live="polite">
+        <h3 id="activityTitle"></h3>
+        <p id="activityText"></p>
+        <p><strong>سؤال للحوار:</strong> <span id="activityQuestion"></span></p>
+        <p class="notice">اقتراح تجريبي مبني على قواعد برمجية بسيطة، وليس ناتجًا عن نموذج ذكاء اصطناعي متصل.</p>
+
+        <hr style="border-color:var(--border);margin:22px 0">
+
+        <label for="after">كيف تقيّم التواصل بعد النشاط؟</label>
+        <select id="after">
+          <option value="1">1 — منخفض جدًا</option>
+          <option value="2">2 — منخفض</option>
+          <option value="3" selected>3 — متوسط</option>
+          <option value="4">4 — جيد</option>
+          <option value="5">5 — ممتاز</option>
+        </select>
+        <button type="button" class="btn secondary" id="compareBtn" style="margin-top:12px">اعرض المقارنة</button>
+        <p id="comparison" aria-live="polite"></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="future">
+  <div class="container">
+    <div class="section-head">
+      <h2>التطوير المستقبلي</h2>
+      <p>خطوات ممكنة لتحويل النموذج إلى منصة أكثر تكاملًا.</p>
+    </div>
+    <div class="grid">
+      <article class="card">
+        <h3>ذكاء اصطناعي فعلي</h3>
+        <p>دمج نموذج ذكاء اصطناعي بعد تحديد المتطلبات واختبار جودة الاقتراحات وضوابط الخصوصية.</p>
+      </article>
+      <article class="card">
+        <h3>تخصيص أوسع</h3>
+        <p>توسيع مكتبة الأنشطة لتناسب مختلف الأعمار والاهتمامات والوقت المتاح للأسرة.</p>
+      </article>
+      <article class="card">
+        <h3>تقييم أكثر موثوقية</h3>
+        <p>إجراء اختبارات مستخدمين بموافقتهم، مع تجنب جمع البيانات الشخصية غير الضرورية.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="impact">
+  <div class="container">
+    <div class="section-head">
+      <h2>الأثر الاجتماعي المتوقع</h2>
+      <p>أهداف يسعى المشروع إلى دعمها، وليست نتائج مثبتة حتى الآن.</p>
+    </div>
+    <div class="highlight">
+      <ul>
+        <li>تشجيع تخصيص وقت للحوار الأسري.</li>
+        <li>توفير أفكار سهلة للأنشطة المشتركة.</li>
+        <li>دعم مهارات الاستماع والتعبير عن الرأي.</li>
+        <li>تعزيز الاستخدام المتوازن للتقنية داخل الأسرة.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="privacy">
+  <div class="container">
+    <div class="section-head">
+      <h2>الخصوصية وحدود النموذج</h2>
+    </div>
+    <div class="card">
+      <p>
+        يعمل النموذج الحالي داخل المتصفح، ولا يتضمن الكود إرسال المدخلات إلى
+        خادم أو حفظها في قاعدة بيانات. ومع ذلك، لا تدخلي معلومات حساسة أو
+        تفاصيل شخصية خاصة.
+      </p>
+      <p>
+        التقييمات ذاتية ولا تُعد تشخيصًا نفسيًا أو قياسًا علميًا لجودة العلاقات
+        الأسرية. كما أن الاقتراحات الحالية تعتمد على قواعد برمجية بسيطة،
+        وليست تحليلًا فعليًا بالذكاء الاصطناعي.
+      </p>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="container">
+    <strong>✦ لُحمة تك — LOHMA TECH ✦</strong>
+    <p>نقرّب القلوب، مو بس نبعد الجوالات.</p>
+    <p class="notice">نموذج أولي لمشروع ابتكار اجتماعي تقني.</p>
+    <a href="#home">العودة إلى الأعلى ↑</a>
+  </div>
+</footer>
+
+<script>
+const activities = {
+  memories: {
+    title: "نشاط: حكاية من الذاكرة",
+    text: "خصصوا من 10 إلى 15 دقيقة، وتناوبوا على مشاركة ذكرى جميلة. يستمع الباقون دون مقاطعة.",
+    questions: {
+      children: "ما أجمل يوم قضيته مع عائلتك؟",
+      teens: "ما ذكرى عائلية تتمنى أن تتكرر؟",
+      adults: "ما موقف عائلي جعلك تشعر بالفخر أو الامتنان؟",
+      mixed: "ما ذكرى جميلة تجمع أكثر من فرد في الأسرة؟"
+    }
+  },
+  goals: {
+    title: "نشاط: أحلامنا القادمة",
+    text: "يتحدث كل فرد عن هدف يتمنى تحقيقه، ثم تختار الأسرة خطوة بسيطة لدعم بعضهم.",
+    questions: {
+      children: "ما الشيء الجديد الذي تتمنى تعلمه؟",
+      teens: "ما مهارة تتمنى أن تتقنها، وكيف يمكننا دعمك؟",
+      adults: "ما هدف شخصي يسعدك أن تشاركنا إياه؟",
+      mixed: "ما تجربة جديدة يمكن أن نجربها جميعًا؟"
+    }
+  },
+  fun: {
+    title: "نشاط: تحدي الدقيقة",
+    text: "اختاروا تحديًا بسيطًا ومناسبًا للجميع، واجعلوا الهدف الضحك والمشاركة.",
+    questions: {
+      children: "ما اللعبة التي تحب أن نلعبها معًا؟",
+      teens: "ما تحدٍ ممتع يمكن أن نجربه كأسرة؟",
+      adults: "ما نشاط بسيط يمكن أن يجعل جلستنا أكثر متعة؟",
+      mixed: "ما لعبة يستطيع الجميع المشاركة فيها؟"
+    }
+  },
+  talk: {
+    title: "نشاط: أسمعك باهتمام",
+    text: "يختار كل فرد موضوعًا يحبه ويتحدث لمدة دقيقتين، بينما يستمع الآخرون دون مقاطعة.",
+    questions: {
+      children: "ما الشيء الذي أسعدك اليوم؟",
+      teens: "ما أمر تتمنى أن يفهمه أفراد أسرتك عنك؟",
+      adults: "ما الطريقة التي تجعلك تشعر بأن الآخرين يستمعون إليك؟",
+      mixed: "ما شيء صغير يمكننا فعله ليشعر كل فرد بالتقدير؟"
+    }
+  }
+};
+
+const form = document.getElementById("activityForm");
+const result = document.getElementById("activityResult");
+
+form.addEventListener("submit", function(event) {
+  event.preventDefault();
+
+  const age = document.getElementById("age").value;
+  const interest = document.getElementById("interest").value;
+  const activity = activities[interest];
+
+  document.getElementById("activityTitle").textContent = activity.title;
+  document.getElementById("activityText").textContent = activity.text;
+  document.getElementById("activityQuestion").textContent = activity.questions[age];
+  document.getElementById("comparison").textContent = "";
+
+  result.classList.remove("hidden");
+  result.scrollIntoView({ behavior: "smooth", block: "nearest" });
+});
+
+document.getElementById("compareBtn").addEventListener("click", function() {
+  const before = Number(document.getElementById("before").value);
+  const after = Number(document.getElementById("after").value);
+  const difference = after - before;
+  let message;
+
+  if (difference > 0) {
+    message = "تقييمك بعد النشاط أعلى بمقدار " + difference +
+      " نقطة. هذه ملاحظة شخصية عن تجربتك وليست دليلًا علميًا على تحسن التواصل.";
+  } else if (difference < 0) {
+    message = "تقييمك بعد النشاط أقل بمقدار " + Math.abs(difference) +
+      " نقطة. يمكنك تجربة نشاط آخر في وقت يناسب الأسرة، دون ضغط على أي شخص.";
+  } else {
+    message = "تقييمك بقي كما هو. قد تختلف التجربة من نشاط إلى آخر، ويمكنكم تجربة فكرة جديدة لاحقًا.";
+  }
+
+  document.getElementById("comparison").textContent = message;
+});
+</script>
+</body>
+</html>
